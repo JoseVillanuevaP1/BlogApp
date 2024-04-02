@@ -12,24 +12,14 @@
 <body>
 
     <div class="container">
+
+        @foreach ($posts as $post)
         <article>
-            <h1>Curso de Laravel 9</h1>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus, veritatis. Minima dolores
-                accusantium neque recusandae corporis nulla non commodi quaerat aut error, optio ex fuga iure
-                exercitationem numquam dolorem velit?</p>
+            <h1>{{$post->title}}</h1>
+            <p>{{$post->excerpt}}</p>
         </article>
-        <article>
-            <h1>Novedades de Laravel 9</h1>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus, veritatis. Minima dolores
-                accusantium neque recusandae corporis nulla non commodi quaerat aut error, optio ex fuga iure
-                exercitationem numquam dolorem velit?</p>
-        </article>
-        <article>
-            <h1>Manejo básico de Eloquent</h1>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus, veritatis. Minima dolores
-                accusantium neque recusandae corporis nulla non commodi quaerat aut error, optio ex fuga iure
-                exercitationem numquam dolorem velit?</p>
-        </article>
+        @endforeach
+
     </div>
     
 </body>
