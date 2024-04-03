@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -23,7 +24,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return "pagina de creacion de articulo";
+        return view('posts.create');
     }
 
     /**
@@ -34,7 +35,14 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        Post::create([
+            'title' => $request->input('title'),
+            'excerpt' => $request->input('excerpt'),
+            'content' => $request->input('content')
+        ]);
+
+        return redirect('/');
     }
 
     /**
@@ -43,20 +51,22 @@ class PostsController extends Controller
      * @param  int  $id
      * 
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        return "pagina de un articulo ({$id})";
+        // $post = Post::findOrFail($id);
+        return view('posts.show')->with(['post' => $post]);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
+     * 
      * @param  int  $id
      * 
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        return "pagina del formulario de edicion ({$id})";
+        return view('posts.edit')->with([
+            'post' => $post,
+        ]);
     }
 
     /**
@@ -66,9 +76,15 @@ class PostsController extends Controller
      * @param  int  $id
      * 
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $post->update([
+            'title' => $request->input('title'),
+            'excerpt' => $request->input('excerpt'),
+            'content' => $request->input('content'),
+        ]);
+
+        return redirect('/');
     }
 
     /**
@@ -77,8 +93,9 @@ class PostsController extends Controller
      * @param  int  $id
      * 
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect('/');
     }
 }
